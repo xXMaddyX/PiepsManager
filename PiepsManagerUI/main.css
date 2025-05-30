@@ -1,0 +1,159 @@
+@font-face {
+    font-family: piepsFont;
+    src: url("fonts/PermanentMarker-Regular.ttf");
+}
+
+:root {
+    /*Main Font*/
+    --MainFont: piepsFont;
+    --MainFontShadow: 
+        1px 1px 2px white, 
+        -1px -1px 2px white, 
+        1px -1px 2px white,
+        -1px 1px 2px white;
+    --MainFontShadowDark:
+        1px 1px 2px rgb(0, 0, 0), 
+        -1px -1px 2px rgb(0, 0, 0), 
+        1px -1px 2px rgb(0, 0, 0),
+        -1px 1px 2px rgb(0, 0, 0);
+    /*Overall Colors*/
+    --barColors: gray;
+
+    /*Header-Vars*/
+    --headerHight: 60px;
+    --headerImageWidth: 100px;
+
+    /*LeftBar Vars*/
+    --leftBarHight: calc(100vh - var(--headerHight));
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: var(--MainFont);
+    user-select: none;
+    overflow: hidden;
+}
+
+body {
+    background-color: rgb(211, 211, 211);
+}
+
+#header-logo {
+    width: var(--headerImageWidth);
+    filter: drop-shadow(2px 2px 3px black);
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    height: var(--headerHight);
+    min-width: 840px;
+    background-color: var(--barColors);
+    box-shadow: 2px 2px 5px black;
+}
+
+.logo-elemes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.logo-elemes h1 {
+    font-size: 2.2rem;
+    text-shadow: var(--MainFontShadow);
+}
+
+#lang-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.lang-buttons {
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    justify-self: center;
+    align-self: center;
+}
+
+#clock {
+    margin-right: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    min-height: 600px;
+}
+
+#left-nav > nav > li {
+    all: unset;
+    justify-content: center;
+    align-items: center;
+}
+
+#left-nav nav {
+    display: inherit;
+    flex-direction: inherit;
+    width: 100%;
+}
+
+
+#left-nav {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--barColors);
+    height: var(--leftBarHight);
+    width: 100px;
+    min-height: 620px;
+    box-shadow: inset 0px -1px 5px black;
+}
+
+.left-nav-buttons {
+    all: unset;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    border-top: 1px solid black;
+    /*text-shadow: var(--MainFontShadow);*/
+    transition: all 0.5s;
+}
+
+.left-nav-buttons:hover {
+    color: rgb(255, 255, 255);
+    background-color: black;
+    text-shadow: var(--MainFontShadowDark);
+
+}
+
+.left-nav-buttons.active {
+    color: white;
+    background-color: rgb(211, 211, 211);
+    text-shadow: var(--MainFontShadowDark);
+}
+
+#last-nav-btn {
+    border-bottom: 1px solid black;
+}
+
+#main-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    height: 100%;
+}
