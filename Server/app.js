@@ -1,20 +1,37 @@
 import express from "express";
 import cors from "cors";
 import fs from "node:fs/promises";
+//----------------------------->>>>INIT_APP_SETINGS<<<<--------------------------------->
+//PORT_CONFIG
 
 const Config = {
     port: 3005,
-}
+};
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>
+//LOAD_DATA_ON_STARTUP
 
 let dataCache = [];
-let isFirstRun = true;
+let loadData = await fs.readFile("./planDb.json", {encoding: "utf-8"});
+dataCache = await JSON.parse(loadData);
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>
+//INIT_APP
 
 const app = express();
+//-------------------------------------------------------------------------------------->
+//------------------------->>>>CORS_AND_STATIC_SETTINGS<<<<----------------------------->
 app.use(cors({
     origin: "*"
 }));
 app.use(express.json());
-
+app.use(express.static("./src"));
+//-------------------------------------------------------------------------------------->
+//------------------------>>>>HOME_ROUTE_TO_DELIVER_APP<<<<----------------------------->
+app.get("/", (req, res) => {
+    res.sendFile("./src/index.html");
+    res.end();
+});
+//-------------------------------------------------------------------------------------->
+//------------------------------>>>>TODO_ENDPOINTS<<<<---------------------------------->
 app.post("/saveData", async (req, res) => {
     let rewRes = await req.body;
     if (rewRes) {
@@ -25,26 +42,14 @@ app.post("/saveData", async (req, res) => {
     let dataToSave = JSON.stringify(dataCache);
     await fs.writeFile("./planDb.json", dataToSave)
 });
-
-app.get("/", (req, res) => {
-    res.json({"msg": "Schalala"})
-    res.end();
-})
-
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>
 app.get("/loadData", async (req, res) => {
-    if (isFirstRun) {
-        isFirstRun = false
-        let loadData = await fs.readFile("./planDb.json", {encoding: "utf-8"});
-        let jsonData = await JSON.parse(loadData);
-        res.json(jsonData);
-        res.end();
-    } else {
-        res.json(dataCache);
-        res.end();
-    }
+    console.log(req.headers)
+    res.json(dataCache);
     res.end();
 })
-
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>
 app.listen(Config.port, () => {
     console.log(`Server is running on Port:${Config.port}`)
 });
+//-------------------------------------------------------------------------------------->
