@@ -1,3 +1,5 @@
+import { Config } from "../../../main.js";
+
 class AddModalFuncs {
     /**
      * @param {Array<HTMLElement>} htmlContainer 
@@ -37,7 +39,7 @@ class AddModalFuncs {
     };
 
     static async PostDataToServer(ObjArr) {
-        const resultStatus = await fetch("http://192.168.0.49:3005/saveData", {
+        const resultStatus = await fetch(`${Config.CurrentServerAdress}/saveData`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
@@ -48,7 +50,7 @@ class AddModalFuncs {
     };
 
     static async LoadDataFromServer() {
-        const rawData = await fetch("http://192.168.0.49:3005/loadData");
+        const rawData = await fetch(`${Config.CurrentServerAdress}/loadData`);
         const parsedJson = await rawData.json();
         return parsedJson;
     };

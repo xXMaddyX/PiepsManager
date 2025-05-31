@@ -207,6 +207,14 @@
         min-width: 300px;
         align-items: center;
         gap: 20px;
+        max-height: 600px;
+        overflow-y: auto;
+    }
+
+    @media (max-height: 700px) {
+        .to-dos {
+            max-height: 300px;
+        }
     }
 
     .to-do-container {

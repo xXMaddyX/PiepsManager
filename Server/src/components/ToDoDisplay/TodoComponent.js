@@ -110,7 +110,6 @@ class TodoDisplay extends HTMLElement {
         })
         //--------------->>>>PIEPS_SIGNALS<<<<--------------------->
         PiepsSignals.connectSignal("deleteElemWithID", async (data) => {
-            this.ObjectPool = await AddModalFuncs.LoadDataFromServer();
             AddModalFuncs.RenderCards(this);
 
            this.ObjectPool = this.ObjectPool.filter(item => item.DataID != data);

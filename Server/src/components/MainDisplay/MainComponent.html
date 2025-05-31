@@ -1,5 +1,14 @@
 <div class="main-container">
-    <h1>Das ist ein test</h1>
+    <div class="main-greetings">
+        <h1>Willkommen beim Piep´s Manager</h1>
+        <span></span>
+        <h3>Dein Piep´s Soft Work Hub.</h3>
+    </div>
+    <div class="main-overview-wrapper">
+        <div class="main-overview-grid">
+
+        </div>
+    </div>
 </div>
 <style>
     * {
@@ -15,5 +24,31 @@
         align-items: center;
         height: 100%;
         width: 100%;
+    }
+
+    .main-greetings {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        margin-top: 30px;
+    }
+
+    span {
+        width: 80%;
+        height: 1px;
+        background-color: black;
+    }
+
+    .main-overview-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        width: 80%;
+        background-color: aqua;
+        height: 300px;
     }
 </style>

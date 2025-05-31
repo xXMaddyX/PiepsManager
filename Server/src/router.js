@@ -1,10 +1,12 @@
 import MainDisplayComponent from "./components/MainDisplay/MainComponent.js";
 import TodoDisplay from "./components/ToDoDisplay/TodoComponent.js";
 import ToDoCardComponent from "./components/ToDoDisplay/TodoParts/ToDoCard/TodoCard.js";
+import FileServerUIComponent from "./components/FileServer/FileServerUI.js";
 //DEFINE_CUSTOM_COMPONENTS----------------------------------------->
 customElements.define("main-display", MainDisplayComponent);
 customElements.define("todo-display", TodoDisplay);
 customElements.define("todo-card", ToDoCardComponent);
+customElements.define("fileserver-display", FileServerUIComponent);
 
 
 class Router {
@@ -12,7 +14,7 @@ class Router {
         main: "main-display",
         dashbord: "dashbord-display",
         todo: "todo-display",
-        web: "web-display",
+        fileserver: "fileserver-display",
         chat: "chat-display"
     };
     /**
