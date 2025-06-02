@@ -6,7 +6,7 @@ const APP = document.querySelector("#app");
 const Clock = document.querySelector("#clock");
 
 const Config = {
-    CurrentServerAdress: "http://192.168.0.224:3005", // LOAD FOR WEBSITE AND TODO!!!
+    CurrentServerAdress: "http://192.168.0.49:3005", // LOAD FOR WEBSITE AND TODO!!!
 }
 
 customElements.define("clock-component", SiteClock);

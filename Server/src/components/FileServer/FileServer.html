@@ -1,6 +1,74 @@
-<div class="file-server-ui">
-    <h1>File Server</h1>
+<div class="main-container">
+    <div class="main-wrapper">
+        <section class="header-sec-container">
+            <div class="header-content">
+                <h1>Piep´s File System</h1>
+            </div>
+        </section>
+        <span class="spacer"></span>
+        <section class="file-display-container">
+            <div class="file-header-box">
+                <h1>Files</h1>
+            </div>
+            <div class="file-display-box">
+                <div class="file-box"></div> <!--INJECT_FILES_HERE-->
+            </div>
+            <!--NEED TO ADD FOLDER CONTAINER ALSO!!!!-->
+        </section>
+        <section class="create-folder-container">
+
+        </section>
+        <section class="upload-file-container">
+
+        </section>
+    </div>
 </div>
 <style>
+    * {
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+    }
+
+    .spacer {
+        width: 80%;
+        height: 1px;
+        background-color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .main-container {
+        display: flex;
+        width: 100%;
+        max-height: 90vh; /*MAYBE CHANGE THET!!!*/
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .main-wrapper {
+        display: inherit;
+        flex-direction: inherit;
+        align-items: inherit;
+    }
+
+    .file-display-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .file-header-box {
+        display: inherit;
+        flex-direction: inherit;
+        align-items: inherit;
+    }
+
+    .file-display-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    /*----------------------------->>>>FILE_CONTAINER<<<<--------------------------*/
 
 </style>
