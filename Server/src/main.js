@@ -21,7 +21,6 @@ PiepsSignals.createSignal("deleteElemWithID");
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>
 //FILE_SYSTEM_RELATED_SIGNALS
 PiepsSignals.createSignal("ChangeDir");
-PiepsSignals.createSignal("StepDirBack");
 
 PiepsSignals.createSignal("DeleteFolder");
 PiepsSignals.createSignal("RenameFolder");

@@ -10,7 +10,9 @@ class FileUXCompenentCreator {
     static createFileFolderComponents(self, fileArr, tag) {
         let tagFlag = tag;
         let arr = fileArr;
-        console.log(arr)
+        let targetBox = self.shadowRoot.querySelector(`.${tagFlag}-box`);
+        targetBox.innerHTML = "";
+        
         arr.forEach((item) => {
             const container = document.createElement("div");
             container.classList.add(`${tagFlag}-elem`);
@@ -24,7 +26,7 @@ class FileUXCompenentCreator {
                         PiepsSignals.emitSignal("DownloadFile");
                         break
                         case "folder":
-                        PiepsSignals.emitSignal("ChangeDir");
+                        PiepsSignals.emitSignal("ChangeDir", item);
                         //change Folder Signal----->
                         break
                     default:
@@ -74,7 +76,6 @@ class FileUXCompenentCreator {
                 }
             });
             BtnContainer.append(delButton);
-
             container.append(BtnContainer);
 
             const targetCont = self.shadowRoot.querySelector(`.${tagFlag}-box`);

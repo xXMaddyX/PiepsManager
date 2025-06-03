@@ -14,15 +14,23 @@ export default class FileServerUIComponent extends HTMLElement {
 
         this.initStore();
         this.initRefs();
-        await this.loadFileData();
+        await this.createAndLoadPath();
         FileUXCompenentCreator.createFileFolderComponents(this, this.FileData.FILE_DATA, "file");
         FileUXCompenentCreator.createFileFolderComponents(this, this.FileData.FOLDER_DATA, "folder");
         this.connectSignals();
     };
 
     connectSignals() {
-        PiepsSignals.connectSignal("ChangeDir", this.fireTestFunc);
-        PiepsSignals.connectSignal("StepDirBack", this.fireTestFunc);
+        //STEP_DIR_UP------------>
+        PiepsSignals.connectSignal("ChangeDir", async (data) => {
+            this.FileData.CURRENT_PATH_Pool.push(data);
+            await this.stepDirUp();
+        });
+
+        this.StepBackButton.addEventListener("click", async () => {
+            this.FileData.CURRENT_PATH_Pool.pop();
+            await this.stepDirDown();
+        })
 
         PiepsSignals.connectSignal("DeleteFolder", this.fireTestFunc);
         PiepsSignals.connectSignal("RenameFolder", this.fireTestFunc);
@@ -40,6 +48,7 @@ export default class FileServerUIComponent extends HTMLElement {
     initStore() {
         this.FileData = {
             BASIC_PATH_START: "http://192.168.0.49:3005/files?path=",
+            CURRENT_PATH_Pool: [],
             CURRENT_PATH: "",
             ROOT_PATH: "",
             
@@ -50,9 +59,30 @@ export default class FileServerUIComponent extends HTMLElement {
 
     initRefs() {
         this.FileBOX = this.shadowRoot.querySelector(".file-box");
+        this.StepBackButton =  this.shadowRoot.querySelector("#folder-Down-btn");
+    };
+
+    resetChaches() {
+        this.FileData.FILE_DATA = [];
+        this.FileData.FOLDER_DATA = [];
+    }
+
+    async createAndLoadPath() {
+        let pathOut = "";
+        if (this.FileData.CURRENT_PATH_Pool.length <= 0) {
+            this.FileData.CURRENT_PATH = pathOut;
+            await this.loadFileData();
+        } else {
+            this.FileData.CURRENT_PATH_Pool.forEach((item) => {
+                pathOut += `${item}/`
+            });
+            this.FileData.CURRENT_PATH = pathOut;
+            await this.loadFileData();
+        };
     };
 
     async loadFileData() {
+        this.resetChaches();
         try {
             const rawData = await fetch(`${this.FileData.BASIC_PATH_START}${this.FileData.CURRENT_PATH}`, {
                 method: "GET",
@@ -71,4 +101,18 @@ export default class FileServerUIComponent extends HTMLElement {
             throw new Error("Error at loading Folder Data in Endpoint (/files)", err);
         };
     };
+
+    async stepDirUp() {
+        await this.rerender();
+    }
+
+    async stepDirDown() {
+        await this.rerender();
+    }
+
+    async rerender() {
+        await this.createAndLoadPath();
+        FileUXCompenentCreator.createFileFolderComponents(this, this.FileData.FILE_DATA, "file");
+        FileUXCompenentCreator.createFileFolderComponents(this, this.FileData.FOLDER_DATA, "folder");
+    }
 };

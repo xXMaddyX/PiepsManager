@@ -7,6 +7,7 @@
         </section>
         <span class="spacer"></span>
         <section class="file-display-container">
+            <button id="folder-Down-btn">Back</button>
             <div class="file-header-box">
                 <h1>Files</h1>
             </div>
@@ -91,6 +92,15 @@
         justify-content: space-between;
     }
 
+    .file-elem p {
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+
+    .file-elem p:hover {
+        color: white;
+    }
+
     .file-elem-buttons {
         display: flex;
         flex-direction: row;
@@ -146,6 +156,15 @@
         justify-content: space-between;
     }
 
+    .folder-elem p {
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+
+    .folder-elem p:hover {
+        color: white;
+    }
+
     .folder-elem-buttons {
         display: flex;
         flex-direction: row;
@@ -163,6 +182,24 @@
     }
 
     .folder-elem-buttons button:hover {
+        background-color: black;
+        color: white;
+        box-shadow: inset 0px 0px 5px rgb(255, 255, 255);
+    }
+
+    #folder-Down-btn {
+        all: unset;
+        border: 1px solid black;
+        box-shadow: 2px 2px 5px black;
+        border-radius: 5px;
+        border-top-left-radius: 100px;
+        padding-left: 15px;
+        padding-right: 15px;
+        transition: all 0.5s;
+        margin-bottom: 10px;
+    }
+
+    #folder-Down-btn:hover {
         background-color: black;
         color: white;
         box-shadow: inset 0px 0px 5px rgb(255, 255, 255);
