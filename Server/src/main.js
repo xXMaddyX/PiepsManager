@@ -16,9 +16,21 @@ APP.append(document.createElement("main-display"));
 Clock.append(document.createElement("clock-component"));
 //--------------------------------------------------------------->
 //CREATE_SIGNALS------------------------------------------------->
+//TODO_COMPNENT_RELATED_SIGNALS
 PiepsSignals.createSignal("deleteElemWithID");
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>
+//FILE_SYSTEM_RELATED_SIGNALS
+PiepsSignals.createSignal("ChangeDir");
+PiepsSignals.createSignal("StepDirBack");
 
+PiepsSignals.createSignal("DeleteFolder");
+PiepsSignals.createSignal("RenameFolder");
 
+PiepsSignals.createSignal("DeleteFile");
+PiepsSignals.createSignal("RenameFile");
+
+PiepsSignals.createSignal("DownloadFile");
+//--------------------------------------------------------------->
 function initAPP() {
     initNavButtons();
 };

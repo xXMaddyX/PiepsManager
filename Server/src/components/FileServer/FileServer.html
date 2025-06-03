@@ -15,6 +15,14 @@
             </div>
             <!--NEED TO ADD FOLDER CONTAINER ALSO!!!!-->
         </section>
+        <section class="folder-display-container">
+            <div class="folder-header-box">
+                <h1>Folders</h1>
+            </div>
+            <div class="folder-display-box">
+                <div class="folder-box"></div> <!--INJECT_FOLDERS_HERE-->
+            </div>
+        </section>
         <section class="create-folder-container">
 
         </section>
@@ -34,8 +42,6 @@
         width: 80%;
         height: 1px;
         background-color: black;
-        margin-top: 10px;
-        margin-bottom: 10px;
     }
 
     .main-container {
@@ -50,6 +56,7 @@
         display: inherit;
         flex-direction: inherit;
         align-items: inherit;
+        gap: 20px;
     }
 
     .file-display-container {
@@ -68,6 +75,97 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        background-color: gray;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px;
+        min-width: 50vw;
+        box-shadow: 2px 2px 5px black;
+    }
+
+    .file-elem {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .file-elem-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .file-elem-buttons button {
+        all: unset;
+        border: 1px solid black;
+        box-shadow: 2px 2px 5px black;
+        border-radius: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        transition: all 0.5s;
+    }
+
+    .file-elem-buttons button:hover {
+        background-color: black;
+        color: white;
+        box-shadow: inset 0px 0px 5px rgb(255, 255, 255);
+    }
+
+    /*--------------*/
+    .folder-display-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .folder-header-box {
+        display: inherit;
+        flex-direction: inherit;
+        align-items: inherit;
+    }
+
+    .folder-display-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background-color: gray;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px;
+        min-width: 50vw;
+        box-shadow: 2px 2px 5px black;
+    }
+
+    .folder-elem {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .folder-elem-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .folder-elem-buttons button {
+        all: unset;
+        border: 1px solid black;
+        box-shadow: 2px 2px 5px black;
+        border-radius: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        transition: all 0.5s;
+    }
+
+    .folder-elem-buttons button:hover {
+        background-color: black;
+        color: white;
+        box-shadow: inset 0px 0px 5px rgb(255, 255, 255);
     }
     /*----------------------------->>>>FILE_CONTAINER<<<<--------------------------*/
 

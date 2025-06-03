@@ -72,8 +72,6 @@ class TodoDisplay extends HTMLElement {
                     if (item.id == DataObj.Optionen) { item.append(ToDoCardItem); };
                 });
                 this.ObjectPool.push(DataObj);
-                //CONSOL_LOG_ENTFERNEN!!!!!!!!!!!!!!!
-                console.table(this.ObjectPool);
                 
                 let result = await AddModalFuncs.PostDataToServer(this.ObjectPool);
                 console.log(result);
@@ -104,18 +102,12 @@ class TodoDisplay extends HTMLElement {
                     });
                 };
                 await AddModalFuncs.PostDataToServer(this.ObjectPool);
-                //CONSOL_LOG_ENTFERNEN!!!!!!!!!!!!!!!
-                console.table(this.ObjectPool);
             });
         })
         //--------------->>>>PIEPS_SIGNALS<<<<--------------------->
         PiepsSignals.connectSignal("deleteElemWithID", async (data) => {
-            AddModalFuncs.RenderCards(this);
-
            this.ObjectPool = this.ObjectPool.filter(item => item.DataID != data);
            await AddModalFuncs.PostDataToServer(this.ObjectPool);
-           //CONSOL_LOG_ENTFERNEN!!!!!
-           console.table(this.ObjectPool)
         });
 
     };

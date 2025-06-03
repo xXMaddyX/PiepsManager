@@ -1,4 +1,5 @@
 import FileUXCompenentCreator from "./FileServerCoCreator.js";
+import PiepsSignals from "../../Modules/PiepsSignals.js";
 
 export default class FileServerUIComponent extends HTMLElement {
     constructor() {
@@ -14,8 +15,27 @@ export default class FileServerUIComponent extends HTMLElement {
         this.initStore();
         this.initRefs();
         await this.loadFileData();
-        FileUXCompenentCreator.createFileComponents(this, this.FileData.FILE_DATA);
+        FileUXCompenentCreator.createFileFolderComponents(this, this.FileData.FILE_DATA, "file");
+        FileUXCompenentCreator.createFileFolderComponents(this, this.FileData.FOLDER_DATA, "folder");
+        this.connectSignals();
     };
+
+    connectSignals() {
+        PiepsSignals.connectSignal("ChangeDir", this.fireTestFunc);
+        PiepsSignals.connectSignal("StepDirBack", this.fireTestFunc);
+
+        PiepsSignals.connectSignal("DeleteFolder", this.fireTestFunc);
+        PiepsSignals.connectSignal("RenameFolder", this.fireTestFunc);
+
+        PiepsSignals.connectSignal("DeleteFile", this.fireTestFunc);
+        PiepsSignals.connectSignal("RenameFile", this.fireTestFunc);
+
+        PiepsSignals.connectSignal("DownloadFile", this.fireTestFunc);
+    };
+
+    fireTestFunc() {
+        console.log("Write something")
+    }
 
     initStore() {
         this.FileData = {

@@ -39,20 +39,28 @@ class AddModalFuncs {
     };
 
     static async PostDataToServer(ObjArr) {
-        const resultStatus = await fetch(`${Config.CurrentServerAdress}/saveData`, {
-            method: "POST", 
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(ObjArr),
-        });
-        return resultStatus;
+        try {
+            const resultStatus = await fetch(`${Config.CurrentServerAdress}/saveData`, {
+                method: "POST", 
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(ObjArr),
+            });
+            return resultStatus;
+        } catch (err) {
+            throw new Error("Error et sending Data to Endpoint", err);
+        };
     };
 
     static async LoadDataFromServer() {
-        const rawData = await fetch(`${Config.CurrentServerAdress}/loadData`);
-        const parsedJson = await rawData.json();
-        return parsedJson;
+        try {
+            const rawData = await fetch(`${Config.CurrentServerAdress}/loadData`);
+            const parsedJson = await rawData.json();
+            return parsedJson;
+        } catch (err) {
+            throw new Error("Error at Load Data from Endpoint", err);
+        };
     };
 
     static async RenderCards(self) {
