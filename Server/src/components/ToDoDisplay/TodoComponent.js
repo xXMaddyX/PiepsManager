@@ -1,4 +1,3 @@
-import PiepsSignals from "../../Modules/PiepsSignals.js";
 import AddModalFuncs from "./AddModalFuncs/AddModalModule.js";
 
 class TodoDisplay extends HTMLElement {
@@ -105,8 +104,8 @@ class TodoDisplay extends HTMLElement {
             });
         })
         //--------------->>>>PIEPS_SIGNALS<<<<--------------------->
-        PiepsSignals.connectSignal("deleteElemWithID", async (data) => {
-           this.ObjectPool = this.ObjectPool.filter(item => item.DataID != data);
+        this.shadowRoot.addEventListener("deleteElemWithID", async (event) => {
+           this.ObjectPool = this.ObjectPool.filter(item => item.DataID != event.detail.id);
            await AddModalFuncs.PostDataToServer(this.ObjectPool);
         });
 

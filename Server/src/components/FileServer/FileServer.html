@@ -24,8 +24,13 @@
                 <div class="folder-box"></div> <!--INJECT_FOLDERS_HERE-->
             </div>
         </section>
+        <span class="spacer"></span>
         <section class="create-folder-container">
-
+            <h1>Create Folder</h1>
+            <div class="create-folder-wrapper">
+                <input id="create-folder-input" type="text" placeholder="Enter Folder Name">
+                <button id="create-folder-btn">Create Folder</button>
+            </div>
         </section>
         <section class="upload-file-container">
 
@@ -123,6 +128,11 @@
         box-shadow: inset 0px 0px 5px rgb(255, 255, 255);
     }
 
+    .file-elem-buttons button:active {
+        background-color: white;
+        color: black;
+    }
+
     /*--------------*/
     .folder-display-container {
         display: flex;
@@ -187,6 +197,11 @@
         box-shadow: inset 0px 0px 5px rgb(255, 255, 255);
     }
 
+    .folder-elem-buttons button:active {
+        background-color: white;
+        color: black;
+    }
+
     #folder-Down-btn {
         all: unset;
         border: 1px solid black;
@@ -203,6 +218,64 @@
         background-color: black;
         color: white;
         box-shadow: inset 0px 0px 5px rgb(255, 255, 255);
+    }
+
+    #folder-Down-btn:active {
+        background-color: white;
+        color: black;
+    }
+
+    .create-folder-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .create-folder-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        background-color: gray;
+        min-width: 50vw;
+        box-shadow: 2px 2px 5px black;
+        border: 1px solid black;
+        border-radius: 10px;
+        gap: 5px;
+    }
+
+    .create-folder-container input {
+        min-width: 300px;
+        height: 25px;
+        text-align: center;
+        width: 50%;
+        align-self: center;
+        box-shadow: 2px 2px 5px black;
+        background-color: rgb(211, 211, 211);
+    }
+
+    .create-folder-container button {
+        all: unset;
+        border: 1px solid black;
+        box-shadow: 2px 2px 5px black;
+        border-radius: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        transition: all 0.5s;
+        width: 50%;
+        margin-bottom: 10px;
+        text-align: center;
+        align-self: center;
+    }
+
+    .create-folder-container button:hover {
+        background-color: black;
+        color: white;
+    }
+
+    .create-folder-container button:active {
+        background-color: white;
+        color: black;
     }
     /*----------------------------->>>>FILE_CONTAINER<<<<--------------------------*/
 

@@ -1,6 +1,5 @@
 import SiteClock from "./microComponents/Clock.js";
 import Router from "./router.js";
-import PiepsSignals from "./Modules/PiepsSignals.js";
 
 const APP = document.querySelector("#app");
 const Clock = document.querySelector("#clock");
@@ -15,21 +14,7 @@ customElements.define("clock-component", SiteClock);
 APP.append(document.createElement("main-display"));
 Clock.append(document.createElement("clock-component"));
 //--------------------------------------------------------------->
-//CREATE_SIGNALS------------------------------------------------->
-//TODO_COMPNENT_RELATED_SIGNALS
-PiepsSignals.createSignal("deleteElemWithID");
-//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>
-//FILE_SYSTEM_RELATED_SIGNALS
-PiepsSignals.createSignal("ChangeDir");
 
-PiepsSignals.createSignal("DeleteFolder");
-PiepsSignals.createSignal("RenameFolder");
-
-PiepsSignals.createSignal("DeleteFile");
-PiepsSignals.createSignal("RenameFile");
-
-PiepsSignals.createSignal("DownloadFile");
-//--------------------------------------------------------------->
 function initAPP() {
     initNavButtons();
 };

@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import fs from "node:fs/promises";
-import { createWriteStream, createReadStream } from "node:fs";
+import { createWriteStream, createReadStream, mkdirSync, existsSync} from "node:fs";
 import { pipeline } from "node:stream/promises";
 //----------------------------->>>>INIT_APP_SETINGS<<<<--------------------------------->
 //PORT_CONFIG
@@ -69,6 +69,15 @@ app.get("/files", async (req, res) => {
 });
 //CREATE_FOLDER::::::::::::::::::::::::::>
 app.post("/create-folder", (req, res) => {
+    let path = Config.ROOT_FILE_PATH + req.query.path;
+    try {
+        if (!existsSync(path)) {
+            mkdirSync(path);
+            res.status(200);
+        }
+    } catch (err) {
+        res.status(404);
+    }
     res.end();
 });
 //SAVE_FILE::::::::::::::::::::::::::::::>

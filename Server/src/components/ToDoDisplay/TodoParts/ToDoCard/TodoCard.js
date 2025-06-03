@@ -1,5 +1,3 @@
-import PiepsSignals from "../../../../Modules/PiepsSignals.js";
-
 class ToDoCardComponent extends HTMLElement {
     constructor() {
         super();
@@ -29,12 +27,18 @@ class ToDoCardComponent extends HTMLElement {
     }
 
     initEventListeners() {
-        this.deletCardButton.addEventListener("click", () => {
-            let selfID = this.getAttribute("ElemID");
-            PiepsSignals.emitSignal("deleteElemWithID", selfID);
-            this.remove();
-        });
-    };
+    this.deletCardButton.addEventListener("click", () => {
+        const selfID = this.getAttribute("ElemID");
+        this.dispatchEvent(new CustomEvent("deleteElemWithID", {
+            detail: { id: selfID },
+            bubbles: true,
+            composed: true
+        }));
+
+        this.remove();
+    });
+}
+
 
     addAttrToCard() {
         let titel = this.getAttribute("Titel");

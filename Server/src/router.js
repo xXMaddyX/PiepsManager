@@ -17,6 +17,9 @@ class Router {
         fileserver: "fileserver-display",
         chat: "chat-display"
     };
+
+    /**@type {HTMLElement} */
+    static currentElement = null;
     /**
      * @param {HTMLElement} newSite 
      * @param {NodeListOf<Element>} nodeList 
@@ -27,16 +30,17 @@ class Router {
     const tag = Router.routes[newSite];
 
     if (tag) {
+        if (Router.currentElement) {
+            Router.currentElement.remove();
+            Router.currentElement = null;
+        }
+
+        Router.currentElement = document.createElement(tag);
+        APP.innerHTML = "";
+        APP.append(Router.currentElement);
+
         nodeList.forEach((item) => {
-            const isActive = item.getAttribute("name") === newSite;
-
-            item.classList.toggle("active", isActive);
-
-            if (isActive) {
-                const Display = document.createElement(tag);
-                APP.innerHTML = "";
-                APP.append(Display);
-            }
+             item.classList.toggle("active", item.getAttribute("name") === newSite);
         });
     } else {
         console.log("Error: Route not found");

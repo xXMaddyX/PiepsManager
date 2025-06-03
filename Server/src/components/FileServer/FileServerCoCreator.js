@@ -1,5 +1,4 @@
 import FileServerUIComponent from "./FileServerUI.js";
-import PiepsSignals from "../../Modules/PiepsSignals.js";
 
 class FileUXCompenentCreator {
     /**
@@ -19,14 +18,15 @@ class FileUXCompenentCreator {
 
             const FileName = document.createElement("p");
             FileName.textContent = `(${tagFlag}) ${item}`;
-            FileName.addEventListener("click", () => {
+            FileName.addEventListener("click", async () => {
                 switch (tagFlag) {
                     case "file":
                         //Download FILE SIGNAL----->
-                        PiepsSignals.emitSignal("DownloadFile");
                         break
-                        case "folder":
-                        PiepsSignals.emitSignal("ChangeDir", item);
+                    case "folder":
+                        self.FileData.CURRENT_PATH_Pool.push(item);
+                        await self.stepDirUp();
+                        console.log(self.FileData.CURRENT_PATH_Pool)
                         //change Folder Signal----->
                         break
                     default:
@@ -45,11 +45,9 @@ class FileUXCompenentCreator {
                 switch (tagFlag) {
                     case "file":
                         //REANME FILE SIGNAL----->
-                        PiepsSignals.emitSignal("RenameFile");
                         break
                     case "folder":
                         //RENAME FOLDER SIGNAL----->
-                        PiepsSignals.emitSignal("RenameFolder");
                         break
                     default:
                         throw new Error("Wront Tag at Create Clicker!!!");
@@ -64,11 +62,9 @@ class FileUXCompenentCreator {
                 switch (tagFlag) {
                     case "file":
                         //DELETE FILE SIGNAL------->
-                        PiepsSignals.emitSignal("DeleteFile");
                         break
                     case "folder":
                         //DELETE FOLDER SIGNAL----->
-                        PiepsSignals.emitSignal("DeleteFolder");
                         break
                     default:
                         throw new Error("Wront Tag at Create Clicker!!!");
