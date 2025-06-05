@@ -65,7 +65,6 @@ app.get("/loadData", async (req, res) => {
 //LOAD_FILE_AND_DIRS::::::::::::::::::::>
 app.get("/files", async (req, res) => {
     let path = Config.ROOT_FILE_PATH + req.query.path;
-    console.log(path)
     let rawData;
     try {
         rawData = await fs.readdir(`${path}`);
@@ -90,16 +89,29 @@ app.post("/create-folder", (req, res) => {
     res.end();
 });
 //SAVE_FILE::::::::::::::::::::::::::::::>
-app.post("/save-file", (req, res) => {
+app.post("/upload-file", (req, res) => {
     
     res.end();
 });
 //DELETE_FOLDER::::::::::::::::::::::::::>
-app.delete("delete-file", (req, res) => {
-    res.end();
+app.post("/delete-file", async (req, res) => {
+    const fullPath = Config.ROOT_FILE_PATH + req.query.path;
+    try {
+        const stats = await fs.lstat(fullPath);
+        if (stats.isDirectory()) {
+            await fs.rm(fullPath, { recursive: true, force: true });
+        } else {
+            await fs.rm(fullPath);
+        }
+        res.status(200).send("OK");
+    } catch (err) {
+        console.error(err);
+        res.status(404).send("FAIL");
+    }
 });
 //RENAME_FILE::::::::::::::::::::::::::::>
-app.post("rename-file", (req, res) => {
+app.post("/rename-file", (req, res) => {
+    
     res.end()
 });
 //-------------------------------------------------------------------------------------->

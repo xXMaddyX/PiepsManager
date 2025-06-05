@@ -26,7 +26,6 @@ class FileUXCompenentCreator {
                     case "folder":
                         self.FileData.CURRENT_PATH_Pool.push(item);
                         await self.stepDirUp();
-                        console.log(self.FileData.CURRENT_PATH_Pool)
                         //change Folder Signal----->
                         break
                     default:
@@ -41,7 +40,7 @@ class FileUXCompenentCreator {
 
             const renameBtn = document.createElement("button");
             renameBtn.textContent = "Rename";
-            renameBtn.addEventListener("click", () => {
+            renameBtn.addEventListener("click", async () => {
                 switch (tagFlag) {
                     case "file":
                         //REANME FILE SIGNAL----->
@@ -58,13 +57,16 @@ class FileUXCompenentCreator {
 
             const delButton = document.createElement("button");
             delButton.textContent = "Delete";
-            delButton.addEventListener("click", () => {
+            delButton.addEventListener("click", async () => {
                 switch (tagFlag) {
                     case "file":
-                        //DELETE FILE SIGNAL------->
+                        self.FileData.CURRENT_PATH_Pool.push(item)
+                        await self.deleteFile(item);
                         break
                     case "folder":
                         //DELETE FOLDER SIGNAL----->
+                        self.FileData.CURRENT_PATH_Pool.push(item)
+                        await self.deleteFile(item);
                         break
                     default:
                         throw new Error("Wront Tag at Create Clicker!!!");

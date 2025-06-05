@@ -40,6 +40,7 @@ export default class FileServerUIComponent extends HTMLElement {
         this.FileData = {
             BASIC_PATH_START: "http://192.168.0.49:3005/files?path=",
             BASIC_PATH_CREATE_FOLDER: "http://192.168.0.49:3005/create-folder?path=",
+            BASIC_PATH_DELETE_FOLDER: "http://192.168.0.49:3005/delete-file?path=",
             CURRENT_PATH_Pool: [],
             CURRENT_PATH: "",
             ROOT_PATH: "",
@@ -88,8 +89,7 @@ export default class FileServerUIComponent extends HTMLElement {
             const encodetJson = await rawData.json();
             encodetJson.forEach((item) => {
                 if (item.includes(".")) {
-                    let cleanString = item.replaceAll(" ", "_");
-                    this.FileData.FILE_DATA.push(cleanString);
+                    this.FileData.FILE_DATA.push(item);
                 } else {
                     this.FileData.FOLDER_DATA.push(item);
                 };
@@ -152,10 +152,21 @@ export default class FileServerUIComponent extends HTMLElement {
     };
     //---------------------------------------------------------------------------------
     //---------------------------->>>>RENAME_AND_DELETE_FILE<<<<-----------------------
-    async renameFile() {
-
+    async deleteFile(item) {
+        let current_file_path = this.FileData.BASIC_PATH_DELETE_FOLDER;
+        this.FileData.CURRENT_PATH_Pool.forEach((pathElem) => {
+            current_file_path += `${pathElem}/`;
+        });
+        current_file_path = current_file_path.slice(0, -1);
+        try {
+            await fetch(`${current_file_path}`, {
+                method: "POST"
+            })
+        } catch (err) {
+            alert("Error at Renaming File", err);
+        };
+        //POP ITEM OF POOL
+        this.FileData.CURRENT_PATH_Pool.pop();
+        await this.rerender();
     };
-    async deleteFolder() {
-        
-    }
 };
