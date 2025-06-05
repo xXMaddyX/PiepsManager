@@ -14,8 +14,12 @@ const Config = {
 //LOAD_DATA_ON_STARTUP
 
 let dataCache = [];
-let loadData = await fs.readFile("./planDb.json", {encoding: "utf-8"});
-dataCache = await JSON.parse(loadData);
+try {
+    let loadData = await fs.readFile("./planDb.json", {encoding: "utf-8"});
+    dataCache = await JSON.parse(loadData);
+} catch (err) {
+    throw new Error("Error: FileData Read Error", err);
+};
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>
 //INIT_APP
 
@@ -31,6 +35,7 @@ app.use(express.static("./src"));
 //------------------------>>>>HOME_ROUTE_TO_DELIVER_APP<<<<----------------------------->
 app.get("/", (req, res) => {
     res.sendFile("./src/index.html");
+    res.status(200);
     res.end();
 });
 //-------------------------------------------------------------------------------------->
@@ -40,10 +45,14 @@ app.post("/saveData", async (req, res) => {
     if (rewRes) {
         dataCache = rewRes;
     }
-    res.writeHead(200)
-    res.end();
     let dataToSave = JSON.stringify(dataCache);
-    await fs.writeFile("./planDb.json", dataToSave)
+    try {
+        await fs.writeFile("./planDb.json", dataToSave);
+        res.writeHead(200);
+    } catch (err) {
+        res.status(200);
+    }
+    res.end();
 });
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>

@@ -112,7 +112,7 @@ export default class FileServerUIComponent extends HTMLElement {
         FileUXCompenentCreator.createFileFolderComponents(this, this.FileData.FILE_DATA, "file");
         FileUXCompenentCreator.createFileFolderComponents(this, this.FileData.FOLDER_DATA, "folder");
     }
-
+    //--------------------------->>>>CREATE_FOLDER_FUNC<<<<---------------------------
     async createFolder() {
         let current_create_dir_path = "";
         let fieldData = this.CreateFolderInput.value;
@@ -132,7 +132,6 @@ export default class FileServerUIComponent extends HTMLElement {
             }
         });
         this.FileData.CREATE_PATH_POOL = [];
-        console.log(current_create_dir_path)
         try {
             let result = await fetch(`${this.FileData.BASIC_PATH_CREATE_FOLDER}${current_create_dir_path}`, {
                 method: "POST",
@@ -143,4 +142,20 @@ export default class FileServerUIComponent extends HTMLElement {
         };
         await this.rerender();
     };
+    //---------------------------------------------------------------------------------
+    //------------------------>>>>RENAME_DELTE_FOLDER<<<<------------------------------
+    async renameFolder() {
+
+    };
+    async deleteFolder() {
+
+    };
+    //---------------------------------------------------------------------------------
+    //---------------------------->>>>RENAME_AND_DELETE_FILE<<<<-----------------------
+    async renameFile() {
+
+    };
+    async deleteFolder() {
+        
+    }
 };

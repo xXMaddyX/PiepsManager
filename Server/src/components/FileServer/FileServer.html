@@ -32,8 +32,13 @@
                 <button id="create-folder-btn">Create Folder</button>
             </div>
         </section>
+        <span class="spacer"></span>
         <section class="upload-file-container">
-
+            <h1>Upload File</h1>
+            <div class="upload-file-wrapper">
+                <input id="upload-file-input" type="file" placeholder="Enter Folder Name">
+                <button id="upload-file-btn">Upload</button>
+            </div>
         </section>
     </div>
 </div>
@@ -87,6 +92,7 @@
         padding: 20px;
         margin: 10px;
         min-width: 50vw;
+        max-width: 50vw;
         box-shadow: 2px 2px 5px black;
     }
 
@@ -156,6 +162,7 @@
         padding: 20px;
         margin: 10px;
         min-width: 50vw;
+        max-width: 50vw;
         box-shadow: 2px 2px 5px black;
     }
 
@@ -238,17 +245,18 @@
         padding: 20px;
         background-color: gray;
         min-width: 50vw;
+        max-width: 50vw;
         box-shadow: 2px 2px 5px black;
         border: 1px solid black;
         border-radius: 10px;
-        gap: 5px;
+        gap: 15px;
     }
 
     .create-folder-container input {
         min-width: 300px;
-        height: 25px;
+        height: 28px;
         text-align: center;
-        width: 50%;
+        width: 200px;
         align-self: center;
         box-shadow: 2px 2px 5px black;
         background-color: rgb(211, 211, 211);
@@ -262,7 +270,8 @@
         padding-left: 15px;
         padding-right: 15px;
         transition: all 0.5s;
-        width: 50%;
+        width: 150px;
+        height: 28px;
         margin-bottom: 10px;
         text-align: center;
         align-self: center;
@@ -276,6 +285,12 @@
     .create-folder-container button:active {
         background-color: white;
         color: black;
+    }
+
+    .upload-file-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     /*----------------------------->>>>FILE_CONTAINER<<<<--------------------------*/
 
