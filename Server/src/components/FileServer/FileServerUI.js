@@ -147,9 +147,6 @@ export default class FileServerUIComponent extends HTMLElement {
     async renameFolder() {
 
     };
-    async deleteFolder() {
-
-    };
     //---------------------------------------------------------------------------------
     //---------------------------->>>>RENAME_AND_DELETE_FILE<<<<-----------------------
     async deleteFile(item) {

@@ -88,12 +88,7 @@ app.post("/create-folder", (req, res) => {
     }
     res.end();
 });
-//SAVE_FILE::::::::::::::::::::::::::::::>
-app.post("/upload-file", (req, res) => {
-    
-    res.end();
-});
-//DELETE_FOLDER::::::::::::::::::::::::::>
+//DELETE_FOLDER / FILE:::::::::::::::::::>
 app.post("/delete-file", async (req, res) => {
     const fullPath = Config.ROOT_FILE_PATH + req.query.path;
     try {
@@ -109,10 +104,33 @@ app.post("/delete-file", async (req, res) => {
         res.status(404).send("FAIL");
     }
 });
+//UPLOAD_FILES:::::::::::::::::::::::::::>
+app.post("/upload-file", async (req, res) => {
+    const fullpath = Config.ROOT_FILE_PATH + req.query.path;
+        
+    let WriteStream = createWriteStream(fullpath);
+    req.pipe(WriteStream);
+
+    WriteStream.on("finish", () => {
+        res.status(200).send("UploadComplete");
+    });
+
+    WriteStream.on("error", () => {
+        res.status(500).send("File to write file");
+    });
+    req.on("error", (err) => {
+        console.log("Request Error:", err);
+        res.status(500).send("Upload stream Error");
+    });
+});
+//DOWNLOAD_FILES:::::::::::::::::::::::::>
+app.get("download_file", async (req, res) => {
+    res.end();
+});
 //RENAME_FILE::::::::::::::::::::::::::::>
 app.post("/rename-file", (req, res) => {
     
-    res.end()
+    res.end();
 });
 //-------------------------------------------------------------------------------------->
 app.listen(Config.port, () => {
