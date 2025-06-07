@@ -30,6 +30,11 @@ export default class FileServerUIComponent extends HTMLElement {
         this.CreateFolderButton.addEventListener("click", async () => {
             await this.createFolder();
         });
+
+        //UPLOAD_FILE:::::::::::::::::::::::::::::::::::::::::::::::>
+        this.FileUploadUploadButton.addEventListener("click", async () => {
+            await this.uploadFile();
+        })
     };
 
     fireTestFunc() {
@@ -41,6 +46,8 @@ export default class FileServerUIComponent extends HTMLElement {
             BASIC_PATH_START: "http://192.168.0.49:3005/files?path=",
             BASIC_PATH_CREATE_FOLDER: "http://192.168.0.49:3005/create-folder?path=",
             BASIC_PATH_DELETE_FOLDER: "http://192.168.0.49:3005/delete-file?path=",
+            BASIC_PATH_UPLOAD_FOLDER: "http://192.168.0.49:3005/upload-file?path=",
+            BASIC_PATH_DOWNLOAD_FOLDER: "http://192.168.0.49:3005/download_file?path=",
             CURRENT_PATH_Pool: [],
             CURRENT_PATH: "",
             ROOT_PATH: "",
@@ -58,6 +65,10 @@ export default class FileServerUIComponent extends HTMLElement {
 
         this.CreateFolderInput = this.shadowRoot.querySelector("#create-folder-input");
         this.CreateFolderButton = this.shadowRoot.querySelector("#create-folder-btn");
+
+        /**@type {HTMLInputElement} */
+        this.FileUploadInput = this.shadowRoot.querySelector("#upload-file-input");
+        this.FileUploadUploadButton = this.shadowRoot.querySelector("#upload-file-btn");
     };
 
     resetChaches() {
@@ -166,4 +177,52 @@ export default class FileServerUIComponent extends HTMLElement {
         this.FileData.CURRENT_PATH_Pool.pop();
         await this.rerender();
     };
+
+    async uploadFile() {
+        let file = this.FileUploadInput.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', `${this.FileData.BASIC_PATH_UPLOAD_FOLDER}${this.FileData.CURRENT_PATH}`, true);
+
+            xhr.upload.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    console.log(`Upload progress: ${percentComplete.toFixed(2)}%`);
+                    const progressBar = this.shadowRoot.getElementById("uploadProgressBar");
+                    progressBar.style.width = `${percentComplete}%`;
+                }
+            };
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    const result = JSON.parse(xhr.responseText);
+                    alert(result.msg);
+                    const progressBar = this.shadowRoot.getElementById("uploadProgressBar");
+                    progressBar.style.width = "0%"
+                    this.rerender();
+                } else {
+                    alert('Upload failed.');
+                }
+            };
+
+            xhr.onerror = function () {
+                alert('Upload error.');
+            };
+
+            xhr.send(formData);
+        } else {
+            alert('Please select a file to upload.');
+        }
+    };
+
+    async downloadFile(fileName) {
+        try {
+            window.location.href = `${this.FileData.BASIC_PATH_DOWNLOAD_FOLDER}${this.FileData.CURRENT_PATH}${fileName}`;
+        } catch (err) {
+            alert("Download Error", err)
+        }
+    }
 };

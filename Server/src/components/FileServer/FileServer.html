@@ -36,6 +36,10 @@
         <section class="upload-file-container">
             <h1>Upload File</h1>
             <div class="upload-file-wrapper">
+                <div id="progressContainer">
+                    <p>Upload Status: </p>
+                    <div id="uploadProgressBar" style="width: 0%; height: 20px; background-color: green;"></div>
+                </div>
                 <input id="upload-file-input" type="file" placeholder="Enter Folder Name">
                 <button id="upload-file-btn">Upload</button>
             </div>
@@ -62,6 +66,7 @@
         flex-direction: column;
         align-items: center;
         margin-top: 20px;
+        overflow-y: auto;
     }
     .main-wrapper {
         display: inherit;
@@ -291,6 +296,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 100px;
     }
     /*----------------------------->>>>FILE_CONTAINER<<<<--------------------------*/
 

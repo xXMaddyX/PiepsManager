@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
 import fs from "node:fs/promises";
-import { createWriteStream, createReadStream, mkdirSync, existsSync} from "node:fs";
+import { createReadStream, mkdirSync, existsSync} from "node:fs";
 import { pipeline } from "node:stream/promises";
+import multer from "multer";
 //----------------------------->>>>INIT_APP_SETINGS<<<<--------------------------------->
 //PORT_CONFIG
 
@@ -105,28 +106,34 @@ app.post("/delete-file", async (req, res) => {
     }
 });
 //UPLOAD_FILES:::::::::::::::::::::::::::>
-app.post("/upload-file", async (req, res) => {
-    const fullpath = Config.ROOT_FILE_PATH + req.query.path;
-        
-    let WriteStream = createWriteStream(fullpath);
-    req.pipe(WriteStream);
-
-    WriteStream.on("finish", () => {
-        res.status(200).send("UploadComplete");
-    });
-
-    WriteStream.on("error", () => {
-        res.status(500).send("File to write file");
-    });
-    req.on("error", (err) => {
-        console.log("Request Error:", err);
-        res.status(500).send("Upload stream Error");
-    });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const uploadPath = Config.ROOT_FILE_PATH + req.query.path;
+        cb(null, uploadPath);
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname);
+    },
 });
+const upload = multer({storage: storage});
+app.post("/upload-file", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send("No file uploaded");
+    }
+    res.status(200).json({ msg: "UploadComplete" });
+});
+//-------------------------------------------------------------------------------------->
 //DOWNLOAD_FILES:::::::::::::::::::::::::>
-app.get("download_file", async (req, res) => {
-    res.end();
+app.get("/download_file", async (req, res) => {
+    const downloadPath = Config.ROOT_FILE_PATH + req.query.path;
+    let stream = createReadStream(downloadPath);
+    stream.on("error", (err) => {
+        res.status(404).send("Datei nicht gefunden");
+    });
+    res.setHeader("Content-Disposition", `attachment; filename="${req.query.path.split("/").pop()}"`);
+    stream.pipe(res);
 });
+
 //RENAME_FILE::::::::::::::::::::::::::::>
 app.post("/rename-file", (req, res) => {
     

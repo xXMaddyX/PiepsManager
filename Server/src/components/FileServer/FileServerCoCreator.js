@@ -21,12 +21,11 @@ class FileUXCompenentCreator {
             FileName.addEventListener("click", async () => {
                 switch (tagFlag) {
                     case "file":
-                        //Download FILE SIGNAL----->
+                        await self.downloadFile(item);
                         break
                     case "folder":
                         self.FileData.CURRENT_PATH_Pool.push(item);
                         await self.stepDirUp();
-                        //change Folder Signal----->
                         break
                     default:
                         throw new Error("Wront Tag at Create Clicker!!!");
@@ -64,7 +63,6 @@ class FileUXCompenentCreator {
                         await self.deleteFile(item);
                         break
                     case "folder":
-                        //DELETE FOLDER SIGNAL----->
                         self.FileData.CURRENT_PATH_Pool.push(item)
                         await self.deleteFile(item);
                         break
