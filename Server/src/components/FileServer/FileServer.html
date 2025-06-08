@@ -38,7 +38,7 @@
             <div class="upload-file-wrapper">
                 <div id="progressContainer">
                     <p>Upload Status: </p>
-                    <div id="uploadProgressBar" style="width: 0%; height: 20px; background-color: green;"></div>
+                    <div id="uploadProgressBar" style="width: 0%; height: 20px; background-color: rgb(255, 102, 0);"></div>
                 </div>
                 <input id="upload-file-input" type="file" placeholder="Enter Folder Name">
                 <button id="upload-file-btn">Upload</button>
@@ -298,6 +298,59 @@
         align-items: center;
         margin-bottom: 100px;
     }
+
+    .upload-file-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: gray;
+        min-width: 50vw;
+        max-width: 50vw;
+        box-shadow: 2px 2px 5px black;
+        border: 1px solid black;
+        border-radius: 10px;
+        gap: 15px;
+    }
+
+    #upload-file-input::file-selector-button {
+        all: unset;
+        border: 1px solid black;
+        box-shadow: 2px 2px 5px black;
+        border-radius: 5px;
+        height: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
+        transition: all 0.5s;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        font-family: var(--MainFont);
+    }
+
+    #upload-file-input::file-selector-button:hover {
+        background-color: black;
+        color: white
+    }
+
+    #upload-file-btn {
+        all: unset;
+        display: flex;
+        border: 1px solid black;
+        box-shadow: 2px 2px 5px black;
+        border-radius: 5px;
+        height: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
+        transition: all 0.5s;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    #upload-file-btn:hover {
+        background-color: black;
+        color: white;
+    }
+    
     /*----------------------------->>>>FILE_CONTAINER<<<<--------------------------*/
 
 </style>
