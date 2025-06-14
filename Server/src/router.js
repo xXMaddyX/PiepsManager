@@ -36,7 +36,7 @@ class Router {
         }
 
         Router.currentElement = document.createElement(tag);
-        APP.innerHTML = "";
+        APP.replaceChildren();
         APP.append(Router.currentElement);
 
         nodeList.forEach((item) => {

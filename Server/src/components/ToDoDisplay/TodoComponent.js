@@ -48,6 +48,8 @@ class TodoDisplay extends HTMLElement {
         this.AddModalOKButton.addEventListener("click", async () => {
             this.CardAddModal.classList.remove("active");
             const DataObj = AddModalFuncs.getDataFromElements(this.shadowRoot.querySelectorAll(".add-modal-inp"));
+            //NEED TO AD VERFICATION OF INPUT STRINGS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
             this.ObjectPool = await AddModalFuncs.LoadDataFromServer();
             AddModalFuncs.RenderCards(this);
 

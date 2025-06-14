@@ -127,6 +127,7 @@ export default class FileServerUIComponent extends HTMLElement {
     async createFolder() {
         let current_create_dir_path = "";
         let fieldData = this.CreateFolderInput.value;
+        //NEED TO ADD STRING VERIFICATION!!!!!!!!!!!!!!!!!!!!!
         this.CreateFolderInput.value = "";
 
         this.FileData.CURRENT_PATH_Pool.forEach((item) => {
